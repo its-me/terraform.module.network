@@ -9,7 +9,7 @@ variable "region" {
 }
 
 variable "name" {
-  description = "Name prefix for the network and its related resources (e.g. \"shared\" -> \"shared-vpc\", \"shared-subnet\")."
+  description = "Name for the network, subnet, and VPC access connector (e.g. \"tools\")."
   type        = string
 }
 

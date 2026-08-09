@@ -7,7 +7,7 @@
 resource "google_compute_network" "this" {
   count = var.create ? 1 : 0
 
-  name                    = "${var.name}-vpc"
+  name                    = var.name
   project                 = var.project_id
   auto_create_subnetworks = false
 }
@@ -15,7 +15,7 @@ resource "google_compute_network" "this" {
 data "google_compute_network" "this" {
   count = var.create ? 0 : 1
 
-  name    = "${var.name}-vpc"
+  name    = var.name
   project = var.project_id
 }
 
@@ -28,7 +28,7 @@ locals {
 resource "google_compute_subnetwork" "this" {
   count = var.create ? 1 : 0
 
-  name          = "${var.name}-subnet"
+  name          = var.name
   project       = var.project_id
   region        = var.region
   network       = local.network_id
@@ -38,7 +38,7 @@ resource "google_compute_subnetwork" "this" {
 data "google_compute_subnetwork" "this" {
   count = var.create ? 0 : 1
 
-  name    = "${var.name}-subnet"
+  name    = var.name
   project = var.project_id
   region  = var.region
 }
@@ -72,7 +72,7 @@ resource "google_service_networking_connection" "private_service_connection" {
 resource "google_vpc_access_connector" "this" {
   count = var.create ? 1 : 0
 
-  name          = "${var.name}-connector"
+  name          = var.name
   project       = var.project_id
   region        = var.region
   network       = local.network_name
@@ -82,7 +82,7 @@ resource "google_vpc_access_connector" "this" {
 data "google_vpc_access_connector" "this" {
   count = var.create ? 0 : 1
 
-  name    = "${var.name}-connector"
+  name    = var.name
   project = var.project_id
   region  = var.region
 }
