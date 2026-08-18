@@ -1,6 +1,0 @@
-# Copy to terraform.tfvars and fill in your own values.
-# `name` must match the network_name each consuming app is configured with.
-
-project_id = ""
-region     = ""
-name       = "tools"
