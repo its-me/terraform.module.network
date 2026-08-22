@@ -36,3 +36,21 @@ variable "private_service_range_prefix_length" {
   type        = number
   default     = 20
 }
+
+variable "connector_machine_type" {
+  description = "Machine type for the Serverless VPC Access connector's instances. Only used when create = true."
+  type        = string
+  default     = "e2-micro"
+}
+
+variable "connector_min_instances" {
+  description = "Minimum number of instances for the VPC access connector (must be >= 2). Only used when create = true."
+  type        = number
+  default     = 2
+}
+
+variable "connector_max_instances" {
+  description = "Maximum number of instances for the VPC access connector (must be > connector_min_instances). Only used when create = true."
+  type        = number
+  default     = 3
+}

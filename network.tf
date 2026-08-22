@@ -77,6 +77,10 @@ resource "google_vpc_access_connector" "this" {
   region        = var.region
   network       = local.network_name
   ip_cidr_range = var.connector_cidr
+
+  machine_type  = var.connector_machine_type
+  min_instances = var.connector_min_instances
+  max_instances = var.connector_max_instances
 }
 
 data "google_vpc_access_connector" "this" {
