@@ -50,7 +50,7 @@ locals {
 
 # Reserved range + peering so Cloud SQL and Memorystore get private IPs on this VPC.
 resource "google_compute_global_address" "private_service_range" {
-  count = var.create ? 1 : 0
+  count = var.create && var.create_private_service_access ? 1 : 0
 
   name          = "${var.name}-private-service-range"
   project       = var.project_id
@@ -61,7 +61,7 @@ resource "google_compute_global_address" "private_service_range" {
 }
 
 resource "google_service_networking_connection" "private_service_connection" {
-  count = var.create ? 1 : 0
+  count = var.create && var.create_private_service_access ? 1 : 0
 
   network                 = local.network_id
   service                 = "servicenetworking.googleapis.com"
@@ -70,7 +70,7 @@ resource "google_service_networking_connection" "private_service_connection" {
 
 # Lets Cloud Run reach the private VPC (Cloud SQL, Memorystore).
 resource "google_vpc_access_connector" "this" {
-  count = var.create ? 1 : 0
+  count = var.create && var.create_vpc_connector ? 1 : 0
 
   name          = var.name
   project       = var.project_id
@@ -92,5 +92,5 @@ data "google_vpc_access_connector" "this" {
 }
 
 locals {
-  vpc_connector_id = var.create ? google_vpc_access_connector.this[0].id : data.google_vpc_access_connector.this[0].id
+  vpc_connector_id = var.create ? one(google_vpc_access_connector.this[*].id) : data.google_vpc_access_connector.this[0].id
 }

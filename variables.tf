@@ -25,6 +25,18 @@ variable "subnet_cidr" {
   default     = "10.10.0.0/24"
 }
 
+variable "create_private_service_access" {
+  description = "Whether to reserve a private service range and peer it with servicenetworking, which Cloud SQL and Memorystore need for private IPs. Only used when create = true."
+  type        = bool
+  default     = true
+}
+
+variable "create_vpc_connector" {
+  description = "Whether to create a Serverless VPC Access connector, which Cloud Run needs to reach the VPC. It runs connector_min_instances VMs at all times, so disable it when nothing on Cloud Run uses this network. Only used when create = true."
+  type        = bool
+  default     = true
+}
+
 variable "connector_cidr" {
   description = "IPv4 CIDR range for the Serverless VPC Access connector (must be a /28). Only used when create = true."
   type        = string

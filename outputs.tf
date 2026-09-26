@@ -24,6 +24,6 @@ output "subnet_name" {
 }
 
 output "vpc_connector_id" {
-  description = "ID of the shared Serverless VPC Access connector, for use in Cloud Run vpc_access blocks."
+  description = "ID of the shared Serverless VPC Access connector, for use in Cloud Run vpc_access blocks. Null if create_vpc_connector = false."
   value       = local.vpc_connector_id
 }
