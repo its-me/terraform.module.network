@@ -33,6 +33,10 @@ resource "google_compute_subnetwork" "this" {
   region        = var.region
   network       = local.network_id
   ip_cidr_range = var.subnet_cidr
+
+  # Dual-stack: GCP assigns the subnet a /64 of external IPv6 for VMs to take addresses from.
+  stack_type       = var.external_ipv6 ? "IPV4_IPV6" : "IPV4_ONLY"
+  ipv6_access_type = var.external_ipv6 ? "EXTERNAL" : null
 }
 
 data "google_compute_subnetwork" "this" {

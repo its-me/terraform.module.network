@@ -25,6 +25,12 @@ variable "subnet_cidr" {
   default     = "10.10.0.0/24"
 }
 
+variable "external_ipv6" {
+  description = "Whether the subnet is dual-stack (IPv4 + external IPv6), so VMs on it can have public IPv6 addresses alongside IPv4. Only used when create = true."
+  type        = bool
+  default     = true
+}
+
 variable "create_private_service_access" {
   description = "Whether to reserve a private service range and peer it with servicenetworking, which Cloud SQL and Memorystore need for private IPs. Only used when create = true."
   type        = bool
